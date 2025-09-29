@@ -1,0 +1,9 @@
+Training :
+- Initialise weight as zero
+- Initialise bias as zero
+
+Given a data point :
+- predict a result using y = wx + b
+- calculate the error 
+- use gradient descent to figure out new weight and bias
+- repeat n times
