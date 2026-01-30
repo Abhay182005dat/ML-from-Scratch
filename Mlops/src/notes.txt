@@ -1,0 +1,16 @@
+first always git init then dvc init or dvc init --subdir if inside any subfolders
+
+A DVC stage is one step in your ML workflow that turns inputs into outputs using a command.
+Real-life analogy ( for myself ) 
+Making tea ☕:
+Step	                Stage
+- Boil water	        Stage 1
+- Add tea leaves	    Stage 2
+- Add milk & sugar	    Stage 3
+
+-n name -d src/data...(the folder) -p params(if any) -o data/raw(the output folder)
+example : dvc stage add -n data_ingestion -d src/data_ingestion.py -o data/raw python src/data_ingestion.py
+
+YAML - yaml aint a markup language , more readable commands for pipelines, used for writing config files in devops
+
+dvc repro -> runs the pipeline
