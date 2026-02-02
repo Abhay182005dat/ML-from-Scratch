@@ -13,4 +13,12 @@ example : dvc stage add -n data_ingestion -d src/data_ingestion.py -o data/raw p
 
 YAML - yaml aint a markup language , more readable commands for pipelines, used for writing config files in devops
 
-dvc repro -> runs the pipeline
+** dvc repro -> runs the pipeline
+** dvc dag -> visualise the pipeline
+** specify previous directory or raw data as input to next pipeline ! -> dvc stage add -n data_preprocessing 
+                    -d src/data_preprocessing.py -d data/raw -o data/processed python src/data_preprocessing.py
+
+                                                                        explicitly tell dvc about metrics file
+** dvc stage add -n model_evaluation -d src/model_evaluation.py -d model.pkl --metrics metrics.json  python src/model_evaluation.py 
+
+** dvc metrics show  -> track your metrics 
