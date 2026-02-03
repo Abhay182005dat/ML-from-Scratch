@@ -4,7 +4,7 @@ import json
 import pickle
 from sklearn.metrics import accuracy_score , precision_score, recall_score , roc_auc_score
 
-clf = pickle.load(open('model.pkl','rb'))
+clf = pickle.load(open('models/model.pkl','rb'))
 test_data = pd.read_csv('./data/features/test_bow.csv')
 X_test = test_data.iloc[:,0:-1].values
 y_test = test_data.iloc[: ,-1].values
@@ -25,5 +25,5 @@ metrics_dict = {
     'auc' : auc
 }
 
-with open('metrics.json','w') as f :
+with open('reports/metrics.json','w') as f :
     json.dump(metrics_dict ,f , indent=4)
