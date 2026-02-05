@@ -22,3 +22,119 @@ YAML - yaml aint a markup language , more readable commands for pipelines, used 
 ** dvc stage add -n model_evaluation -d src/model_evaluation.py -d model.pkl --metrics metrics.json  python src/model_evaluation.py 
 
 ** dvc metrics show  -> track your metrics 
+
+
+
+// after you make a version normally do this
+git add .
+got commit -m '' 
+git tag -a v1.0 -m 'release V1 with Bag of Words' 
+git push 
+
+what we did in vc-emotion-detection was that we changed the countvectorizer to tfidf to practice versioning
+
+git checkout tags/v1.0 -> takes you to version 1 which consisted bag of words feature engineering step
+
+```````````````````````````````     Steps for data versioning using DVC `````````````````````````````````````
+Data versioning folder -
+in this session you tracked only data without any pipelines , but when you use dvc pipelines such as 
+data_ingestion, data_processing etc .. dvc automatically tracks your outputs of pipelines in "out" commmand in
+dvc.yaml file , so whenever you use pipelines there no need to separately do dvc add etc, its tracked in dvc.lock file
+
+
+Step 1: Explain the problem statement
+Step 2: Create a project directory/ and data, src directories
+Step 3: Initialize git
+Step 4: Initialize DVC [Explanation of files]
+Step 5: Create a GitHub repository
+Step 6: Add remote for git                              echo %TEMP% -> show your cache directory for data versioning    
+Step 7: Add remote for DVC [Changes in config file]     dvc remote add -d myremote C:\Users\abhay\AppData\Local\Temp\any_name
+Step 8: Git add -> First commit [DVC config files]
+Step 9: Write python code -> Run [Git status/DVC Status]
+Step 10: DVC add [Multiple things happen here]              dvc add data/customer.csv
+
+when you do step 10 the cache folder is made and a .gitignore file is made inside data so that data isn't pushed to github and
+data is only pushed to dvc caches and a .dvc file is made to be pushed to github so that only metadata of cache file is pushed
+to the github.
+
+Step 11: Git add code/dvc files
+Step 12: Git commit
+Step 13: DVC push to remote
+Step 14: Git push to GitHub [Experiment 1]
+Step 15: Start experiment 2 -> Change code -> run
+Step 16: Git status/ dvc status
+Step 17: dvc add                              (no need to dvc add while using pipelines you can directly 
+                                                dvc push and git push       )
+Step 18: git add
+Step 19: git commit
+Step 20: dvc push -> git push
+
+in simple way :
+run you python file which generate dataset or anything like file '
+git status
+dvc add folder_pathof_data/---.csv
+git add .
+git commit 
+dvc push
+git push
+
+now in the second version of data you just add some line in data_ingestion file 
+df.drop(columns=['Avg. Session Length'],inplace = True)
+
+git log --oneline to check all commits once
+
+** to rollback first you do  "git checkout" then you do "dvc checkout" ,then dvc auto checkout using the .dvc file from git fetched files
+(above method also applies while using pipelines also)
+
+** also after cloning a repo you Start with **dvc fetch** and then **dvc checkout** also (dvc fetch downloads data to cache directory only)
+** dvc pull downloads data from cache to your workspacefolder ( if you do dvc pull no need of checkout as it does both)
+
+
+``````````````````if you use AWS  as your remote storage then do below steps `````````````````````````````
+
+whenever you create a S3 bucket you can not directly connect to it , for that you create IAM user to connect 
+it securely.IAM is where you can make different users and can give them different roles like access etc.
+
+Create S3 bucket 
+Create IAM User -> you make a policy etc
+    go to users -> username -> attach policies -> create policy -> 
+
+    {
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": ["s3:ListBucket"],
+			"Resource": ["arn:aws:s3:::xxxxxxx"]  -> get your arn number from bucket's properties
+		},
+		{
+		  	"Effect": "Allow",
+			"Action": ["s3:PutObject", "s3:GetObject"],
+			"Resource": ["arn:aws:s3:::xxxxxxxx/*"]  
+		}
+	]
+}
+-> after this give a name (allowdvc) ->after creating the user -> create access key -> cli ->create
+
+
+pip install dvc[s3]
+pip install awscli
+git init
+dvc init
+git remote add
+aws configure
+dvc remote add -d dvcstore s3://name_of_bucket
+dvc add
+git commit 
+dvc push 
+git push
+
+``````````````````````````````````` experiment tracking with DVC `````````````````````````````````````````
+install dvclive used for experiment tracking
+
+** live.log_metric() in DVC logs numeric metrics during model training and integrates 
+				  them with DVC experiments for versioning and comparison.
+similarly log_param() , 
+
+** dvc exp show -> shows all the experiments you have done in command
+now when you change params and run your python file again and again dvc keeps track of your scores or metrics or experiments
