@@ -205,3 +205,23 @@ runs -> runs comes under each of these experiments where you try out different h
 * concepts of mlflow ui,
 -> default is where your experiments get logged when you dont have set up your project or havent given any experiment name.
 
+** with mlflow.start_run() -> context manager tool because of 'with' block othewise you have to write end_run() to terminate 
+							current run.
+							Start a new MLflow run, setting it as the active run under which metrics 
+							and parameters will be logged.
+
+** mlflow.set_experiment('iris-dt') --> set the experiment name under which it runs should come
+** with mlflow.start_run(run_name) -> run_name -> you can give a name for your experiment.you can also give 
+										description , run_id , experiment_id these two are pasted from ui mainly.
+
+** mlflow.log_artifact('confusionmatrix.png') -> log the image or plots generally comes after 
+												plt.savfig('confusionmatrix.png') cause it should save the artifact first
+
+What can Mlflow track ??
+-> parameters-> model hyperparameters , data parameters
+-> metrics
+-> Artifacts which mean tarcking data (not used much as dvc does this part majorly), source code , plot , environment info 
+-> Models 
+-> tags -> custom metadata
+-> Run and experiment info
+
