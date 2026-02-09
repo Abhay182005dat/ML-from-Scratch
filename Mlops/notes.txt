@@ -188,3 +188,20 @@ Why choose mlflow over DVC ?
 -> In dvc you do through command line which is a little bit hassle and also the extension is not so good , hence the user 
 	experience is not so good as compared to mlflow. also in MlFlow there are several integrated tools such as databricks 
 	integration etc. Dvc is not so much mature as compared to the Mlflow.
+
+mlflow solo mode -> only you can access your experiments , services ,tracking etc you get a local url 
+mlflow collaboration mode -> you can share with your team etc.
+
+** mlflow ui -> UI for tracking experiments.
+
+* Diff between experiment and runs
+experiment -> tells how you use differnt type of approaches to solve a problem , like for a problem such as student performance
+		   prediction you take two approaches for predictions. one is that you use a random forest and another is 
+		   feature embeddings based Neural network , so these are two separate experiments which you are trying out .
+
+runs -> runs comes under each of these experiments where you try out different hyperparameters like in random forest , 
+		we experiment with different n_estimators , max_depth etc.
+
+* concepts of mlflow ui,
+-> default is where your experiments get logged when you dont have set up your project or havent given any experiment name.
+
