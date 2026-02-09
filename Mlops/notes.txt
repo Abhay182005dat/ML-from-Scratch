@@ -178,3 +178,13 @@ Use Cases :
 
 3. Experiment Tracking: Use it to track and compare experimental results without modifying the main branch or 
 	affecting the primary workflow.
+
+
+
+````````````````````````````````````````````````````MlFlow````````````````````````````````````````````````````````````````
+
+
+Why choose mlflow over DVC ? 
+-> In dvc you do through command line which is a little bit hassle and also the extension is not so good , hence the user 
+	experience is not so good as compared to mlflow. also in MlFlow there are several integrated tools such as databricks 
+	integration etc. Dvc is not so much mature as compared to the Mlflow.
