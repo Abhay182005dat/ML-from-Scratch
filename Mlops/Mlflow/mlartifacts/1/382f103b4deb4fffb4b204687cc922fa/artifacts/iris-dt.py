@@ -43,12 +43,5 @@ with mlflow.start_run(): # also you can put experiment_id here and paste the id 
     # save the plot as an artifact 
     plt.savefig('confusion_matrix.png')
     mlflow.log_artifact('confusion_matrix.png')
-
     mlflow.log_artifact(__file__)
-
-    mlflow.sklearn.log_model(dt ,'decision_tree' ) # or name='decision_tree'
-
-    mlflow.set_tag('author' , 'abhay')
-    mlflow.set_tag('model','decision_tree')
-    
     print('Accuracy :' , accuracy)
