@@ -225,3 +225,12 @@ What can Mlflow track ??
 -> tags -> custom metadata
 -> Run and experiment info
 
+NOTE : When using artifact you need to have a server running , normally till now you are accessing / working on mlflow on a 
+		local file based system , but now you should have a valid http or https type thing , that is you should now have a 
+		mlflow tracking server.
+		This is done so that you have a collaboration type server , in production these servers are hosted in AWS rds etc .
+
+
+** mlflow.set_tracking_uri() ->  sets the location of the MLflow Tracking Server.This line configures MLflow to log 
+								experiments to a locally running MLflow Tracking Server instead of the default local directory.
+								when you work with aws you pust aws uri here 

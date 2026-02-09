@@ -7,6 +7,7 @@ from sklearn.metrics import accuracy_score , confusion_matrix
 import  matplotlib.pyplot as plt
 import seaborn as sns 
 
+mlflow.set_tracking_uri('http://127.0.0.1:5000/') # when you work with aws you pust aws uri here 
 # load the iris dataset 
 iris = load_iris()
 X = iris.data
@@ -31,5 +32,16 @@ with mlflow.start_run(): # also you can put experiment_id here and paste the id 
 
     mlflow.log_metric('accuracy', accuracy)
     mlflow.log_param('max_depth',max_depth)
+
+    # create a confusino matrix
+    cm = confusion_matrix(y_test , y_pred)
+    plt.figure(figsize=(6,6))
+    sns.heatmap(cm , annot=True , fmt='d',cmap='Blues' , xticklabels=iris.target_names , yticklabels=iris.target_names)
+    plt.ylabel('Actual')
+    plt.xlabel('Predicted')
+    plt.title('Confusion Matrix')
+    # save the plot as an artifact 
+    plt.savefig('confusion_matrix.png')
+    mlflow.log_artifact('confusion_matrix.png')
 
     print('Accuracy :' , accuracy)
