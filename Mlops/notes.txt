@@ -130,6 +130,8 @@ dvc push
 git push
 
 ``````````````````````````````````` experiment tracking with DVC `````````````````````````````````````````
+not done in this project folder because of some issues
+
 install dvclive used for experiment tracking
 
 ** live.log_metric() in DVC logs numeric metrics during model training and integrates 
@@ -138,3 +140,41 @@ similarly log_param() ,
 
 ** dvc exp show -> shows all the experiments you have done in command
 now when you change params and run your python file again and again dvc keeps track of your scores or metrics or experiments
+
+workflow -> run python src/somefile.py -> dvc exp show 
+also you can download dvc extension and manage from there
+
+** dvc exp remove -?used for removing experiments
+** dvc exp apply <exp-name> --> you go back to the workspace of that experiment or you can also apply a specific(best) experiment to your workspace.
+** dvc exp diff <exp-name1> <exp-name2> --> you can see difference between two experiments
+** dvc exp run --queue -S model_training.n_estimators = 8,16,32 -S model_training.max_depth=2,3,5 
+	( model_training.n_estimators these are from params.yaml file you are tracking multiple experiments like gridsearchCV )
+
+when to use 'dvc repro' ?? 
+-> purpose : the dvc repro is used to reproduce your pipeline when any of the dependencies change. It ensures that all 
+				stages of the pipeline are executed in the correct order based on the dependency graph defined in your dvc.yaml file
+
+use cases : regular pipeline execution -> use dvc repro when you want to run your pipeline as defined , typically 
+				after changing the code , input data , or configuration files(like params.yaml)
+
+			reproducing results -> use it to reproduce results or ensure that your pipeline produces consistent outputs after 
+									making changes.
+
+when to use 'dvc exp run ' ?? 
+
+dvc exp run
+
+Purpose: The "dvc exp run"{} command is designed for running and managing experiments. It allows you to tweak 
+		parameters, run different configurations, and keep track of multiple experimental results without altering 
+		your main pipeline.
+
+Use Cases :
+
+1. Running Experiments: Use 'dvc exp run' when you want to experiment with different I hyperparameters or 
+	configurations and compare the results.
+
+2. Parameter Sweeps: Use it for hyperparameter tuning by specifying different parameter values directly in 
+	the command or by queueing multiple experiments.
+
+3. Experiment Tracking: Use it to track and compare experimental results without modifying the main branch or 
+	affecting the primary workflow.
