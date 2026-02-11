@@ -246,3 +246,16 @@ NOTE : When using artifact you need to have a server running , normally till now
 ** mlflow.set_tag('author' , 'abhay')          --> these are just name tags , yo ucan use this for searching purposes in future
    mlflow.set_tag('model','decision_tree')
     
+** mlflow autologging logs everything including parameters and every metrics .
+	but it doesn't  log test metrics and model artifacts .
+
+** mlflow.data.from_pandas() --> converts a pandas DataFrame into an MLflow Dataset object so it can be logged and tracked 
+								as part of an ML experiment.
+
+** mlflow.log_input() --> logs a dataset used in an experiment run. The second argument specifies the context, such as 
+							training or validation, helping with reproducibility and data lineage tracking.
+
+In hyperparameter tuning , you need to log all the combination of parameters your tried , for example say you are applying 
+gridsearchCV so you need to log all the combinations or children experiments.
+
+when you log all the chldren runs also the parent represents teh best model of the experiments conducted.
