@@ -49,20 +49,24 @@ with mlflow.start_run(run_name='grid-search') as parent:    # It does NOT automa
     mlflow.log_metric('accuracy' , best_score)
 
     # data
-    train_df = X_train
+    train_df = X_train.copy()
     train_df['Outcome'] = y_train
-    train_df = mlflow.data.from_pandas(train_df , 'training')
+    train_df = mlflow.data.from_pandas(train_df)
+    mlflow.log_input(train_df , 'training')
 
-    test_df = X_test
+    test_df = X_test.copy()
     test_df['Outcome'] = y_test
-
     test_df = mlflow.data.from_pandas(test_df)
     mlflow.log_input(test_df , 'validation')
+
     # source code
     mlflow.log_artifact(__file__)
 
+    # add model signature 
+    signature = mlflow.models.infer_signature(X_train , grid_search.best_estimator_.predict(X_train))
+
     # model 
-    mlflow.sklearn.log_model(grid_search.best_estimator_ , 'random forest')
+    mlflow.sklearn.log_model(grid_search.best_estimator_ ,artifact_path='random_forest', signature=signature)
 
     # tag 
     mlflow.set_tag('author' , 'Abhay')

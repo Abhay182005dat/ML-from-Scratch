@@ -259,3 +259,6 @@ In hyperparameter tuning , you need to log all the combination of parameters you
 gridsearchCV so you need to log all the combinations or children experiments.
 
 when you log all the chldren runs also the parent represents teh best model of the experiments conducted.
+
+** infer_signature() automatically creates a model signature by capturing the input schema and output schema of the model.
+Eg. mlflow.models.infer_signature(X_train , grid_search.best_estimator_.predict(X_train))
